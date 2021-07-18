@@ -189,7 +189,14 @@ def addEmp(request, id=None):
         return ans
 
     emp = NewRegistration.objects.get(id=id)
-
+    emps = Employee.objects.values_list('email')
+    emails = []
+    for email in emps:
+        emails += email
+    emails = set(emails)
+    if emp.email in emails:
+        messages.error(request, 'Already an Employee')
+        return redirect(viewEmployees)
     x = emp.dob
     username = str(emp.id) + chr(randrange(97, 123)) + emp.fname[:2].lower() + chr(randrange(97, 123)) + emp.lname[1:3].lower() + chr(randrange(65, 91))
     password = generate(randrange(8,12))
