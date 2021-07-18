@@ -1,0 +1,56 @@
+{% extends "boilerplate.html" %}
+    <title>{% block title %}Recent Leaves{% endblock %}</title>
+    {% block menu %}
+    {% if request.session.id is not None %}
+            <a href="/dashboard">Dashboard</a>
+        {% if request.session.admin %}
+            <a href="/publishNotice">Publish Notice</a>
+            <a href="/viewApplicants">New Applicants</a>
+            <a href="/leaveRequests">New Requests</a>
+        {% else %}
+            <a href="/requestLeave" class="active">Request for Leave</a>
+        {% endif %}
+        <a href="/viewEmployees">View Employees</a>
+        <a href="/logout">Logout</a>
+    {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'insert' %}">Register</a>
+    {% endif %}
+    {% endblock %}
+    {% block content %}
+    {% if request.session.id %}
+        {% if request.session.id == employee.id %}
+            <a href="/requestLeave">Request for leave</a>
+        {% endif %}
+        <h2>Recent Leave data for {{employee.fname}} {{employee.lname}}</h2>
+        <p><b>Leaves Taken: </b>{{ leavesTaken }}</p>
+        <p><b>Remaining Leaves: </b>{{employee.rem_leaves}}</p>
+        <div class="table">
+        {% if leaves %}
+            <table>
+                <tr>
+                    <th>Leave Type</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Status</th>
+                </tr>
+                {% for leave in leaves %}
+                    <tr>
+                        <td>{{leave.leaveType}}</td>
+                        <td>{{leave.startDate}}</td>
+                        <td>{{leave.endDate}}</td>
+                        <td style="color: rgb(21, 199, 131); font-weight: bold;">{{leave.decision}}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <h2>No Leave Taken, Impressive!</h2>
+        {% endif %}
+        </div>
+    {% else %}
+        <h3 class="error">Unauthorized, Access Denied, User must be Logged in.</h3>
+    {% endif %}
+    {% endblock %}
+    {% block bottomLinks %}
+        <a href="javascript:history.back();">Back</a>
+    {% endblock %}

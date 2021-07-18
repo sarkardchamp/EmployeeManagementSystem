@@ -1,0 +1,40 @@
+{% extends "boilerplate.html" %}
+    <title>{% block title %}Create new Notice{% endblock %}</title>
+    {% block menu %}
+    {% if request.session.id is not None %}
+            <a href="/dashboard">Dashboard</a>
+        {% if request.session.admin %}
+            <a href="#" class="active">Publish Notice</a>
+            <a href="/viewApplicants">New Applicants</a>
+            <a href="/leaveRequests">New Requests</a>
+        {% else %}
+            <a href="/requestLeave">Request for Leave</a>
+        {% endif %}
+        <a href="/viewEmployees">View Employees</a>
+        <a href="/logout">Logout</a>
+    {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'insert' %}">Register</a>
+    {% endif %}
+    {% endblock %}
+    {% block flashs %}<p id="flash" class="error">{% endblock %}
+    {% block flase %}</p>{% endblock %}
+    {% block content %}
+        {% if request.session.id and request.session.admin %}
+            <a href="/viewNotice">View Recent Notice</a>
+            <div class="form form-notice">
+                <form method="post">
+                    {% csrf_token %}
+                    <h3>Create Notice</h3>
+                    <label for="title">Title:</label>
+                    <input type="text" name="title" id="title">
+                    <label for="body">Notice Body:</label>
+                    <textarea name="body" id="body" placeholder="Notice body here..."></textarea>
+                    <input type="submit" value="Publish">
+                    <a href="javascript:history.back()">Cancel</a>
+                </form>
+            </div>
+        {% else %}
+            <h3 class="error">Unauthorized Access, User must be logged in with Admin privilages.</h3>
+        {% endif %}
+    {% endblock %}

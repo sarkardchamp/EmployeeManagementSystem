@@ -1,0 +1,59 @@
+{% extends "boilerplate.html" %}
+    <title>{% block title %}Pending Leave Requests{% endblock %}</title>
+    {% block menu %}
+    {% if request.session.id is not None %}
+            <a href="/dashboard">Dashboard</a>
+        {% if request.session.admin %}
+            <a href="/publishNotice">Publish Notice</a>
+            <a href="/viewApplicants">New Applicants</a>
+            <a href="#" class="active">New Requests</a>
+        {% else %}
+            <a href="/requestLeave">Request for Leave</a>
+        {% endif %}
+        <a href="/viewEmployees">View Employees</a>
+        <a href="/logout">Logout</a>
+    {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'insert' %}">Register</a>
+    {% endif %}
+    {% endblock %}
+    {% block content %}
+    {% if request.session.id and request.session.admin %}
+        {% if requests %}
+        <div class="table">
+            <table>
+                <tr>
+                    <th>Employee Name</th>
+                    <th>Leaves Remaining</th>
+                    <th>Leave Type</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Reason</th>
+                    <th>Decision</th>
+                </tr>
+                {% for req in requests %}
+                <tr>
+                    <td>{{req.empId.fname}} {{req.empId.lname}}</td>
+                    <td style="text-align: center;">{{req.empId.rem_leaves}}</td>
+                    <td>{{req.leaveType}}</td>
+                    <td>{{req.startDate}}</td>
+                    <td>{{req.endDate}}</td>
+                    <td>{{req.reason}}</td>
+                    <td>
+                        <a href="/acceptLeave/{{req.id}}">Approve</a>
+                        <a href="/rejectLeave/{{req.id}}">Reject</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% else %}
+        <h3 class="success">No Pending Leave Requests</h3>
+        {% endif %}
+    {% else %}
+        <h3>Unauthorized Access, Must have the Privilages of Admin to see details.</h3>
+    {% endif %}
+    {% endblock %}
+    {% block bottomLinks %}
+        <a href="javascript:history.back();">Back</a>
+    {% endblock %}

@@ -1,0 +1,105 @@
+{% extends "boilerplate.html" %}
+    <title>{% block title %}View {% if request.session.id == employee.id %}Your Profile {% else %}Employee Details{% endif %}{% endblock %}</title>
+    {% block menu %}
+    {% if request.session.id is not None %}
+            <a href="/dashboard">Dashboard</a>
+        {% if request.session.admin %}
+            <a href="/publishNotice">Publish Notice</a>
+            <a href="/viewApplicants">New Applicants</a>
+            <a href="/leaveRequests">New Requests</a>
+        {% else %}
+            <a href="/requestLeave">Request for Leave</a>
+        {% endif %}
+        <a href="/viewEmployees">View Employees</a>
+        <a href="/logout">Logout</a>
+    {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'insert' %}">Register</a>
+    {% endif %}
+    {% endblock %}
+    {% block content %}
+    {% if request.session.id is not None %}
+        <div class="card">
+            <div class="image" style="background: url('/media/{{employee.image}} ') top no-repeat; background-size: cover;">
+            </div>
+            <div class="data">
+                <table>
+                    <tr>
+                        <th>Employee Id</th>
+                        <td>{{employee.id}}</td>
+                    </tr>
+                    <tr>
+                        <th>First Name: </th>
+                        <td>{{employee.fname}}</td>
+                    </tr>
+                    <tr>
+                        <th>Last Name:</th>
+                        <td>{{employee.lname}}</td>
+                    </tr>
+                    <tr>
+                        <th>Username:</th>
+                        <td>{{employee.username}}</td>
+                    </tr>
+                    {% if request.session.id == employee.id %}
+                    <tr>
+                        <th>Password:</th>
+                        <td>
+                            <a href="/changePassword">Change Password</a>
+                        </td>
+                    </tr>
+                    {% endif %}
+                    <tr>
+                        <th>Email:</th>
+                        <td><a href="mailto://{{employee.email}}">{{employee.email}}</a></td>
+                    </tr>
+                    <tr>
+                        <th>Date of Birth:</th>
+                        <td>{{employee.dob}}</td>
+                    </tr>
+                    <tr>
+                        <th>City:</th>
+                        <td>{{employee.city}}</td>
+                    </tr>
+                    <tr>
+                        <th>Date of Joining:</th>
+                        <td>{{employee.joining_date}}</td>
+                    </tr>
+                    <tr>
+                        <th>Remaining Leaves:</th>
+                        <td>{{employee.rem_leaves}}</td>
+                    </tr>
+                    <tr>
+                        <th>Loss of pay Leaves taken:</th>
+                        <td>{{employee.lop_leaves}}</td>
+                    </tr>
+                    <tr>
+                        <th>Position:</th>
+                        <td>{{employee.position}}</td>
+                    </tr>
+                    <tr>
+                        <th>Present Team:</th>
+                        <td>{{employee.team}}</td>
+                    </tr>
+                    <tr>
+                        <th>Current Project:</th>
+                        <td>{{employee.current_project}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    {% else %}
+        <h3 class="error">Unauthorized! Access Denied.</h3>
+    {% endif %}
+    {% endblock %}
+    {% block bottomLinks %}
+    {% if request.session.id %}
+        {% if request.session.admin %}
+        <a href="{% url 'viewEmployees' %}">View Employees</a>
+        <a href="/update/{{employee.id}}">Edit Data</a>
+        {% endif %}
+        {% if request.session.admin or request.session.id  == employee.id %}
+        <a href="/leaves/{{employee.id}}">Recent Leaves</a>
+        {% endif %}
+    {% endif %}
+    <a href="javascript:history.back()">Back</a>
+    {% endblock %}

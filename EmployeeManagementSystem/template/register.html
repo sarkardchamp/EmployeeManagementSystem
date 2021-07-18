@@ -1,0 +1,31 @@
+{% extends "boilerplate.html" %}
+    <title>{% block title %}Registration{% endblock %}</title>
+    {% block menu %}
+        <a href="/login">Login</a>
+    {% endblock %}
+    {% block flashs %}<p id="flash" class="error">{% endblock %}
+    {% block flase %}</p>{% endblock %}
+    {% block content %}
+        <div class="form mb-3">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token%}
+                <label for="fname">First Name:</label>
+                <input type="text" name="fname" id="fname" placeholder="First Name">
+                <label for="lname">Last Name:</label>
+                <input type="text" name="lname" id="lname" placeholder="Last Name">
+                <label for="image">Passport Sized Photgraph:</label>
+                <input type="file" name="image" id="image" accept="image/*">
+                <label for="city">City:</label>
+                <input type="text" name="city" id="city" placeholder="Your City">
+                <label for="age">Date of Birth:</label>
+                <input type="date" name="dob" id="dob" placeholder="Date of Birth">
+                <label for="email">Email ID:</label>
+                <input type="text" name="email" id="email" placeholder="Your Email">
+                <input type="submit" name="register" value="Register">
+                <a href="javascript:history.back();" style="margin-left: 30px;">Cancel</a>
+            </form>
+        </div>
+    {% endblock %}
+    {% block js %}
+        <script src="/static/form-validation.js"></script>
+    {% endblock %}

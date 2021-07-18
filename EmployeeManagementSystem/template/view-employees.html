@@ -1,0 +1,66 @@
+{% extends "boilerplate.html" %}
+    <title>{% block title %}View Employees{% endblock %}</title>
+    {% block menu %}
+    {% if request.session.id is not None %}
+            <a href="/dashboard">Dashboard</a>
+        {% if request.session.admin %}
+            <a href="/publishNotice">Publish Notice</a>
+            <a href="/viewApplicants">New Applicants</a>
+            <a href="/leaveRequests">New Requests</a>
+        {% else %}
+            <a href="/requestLeave">Request for Leave</a>
+        {% endif %}
+        <a href="#" class="active">View Employees</a>
+        <a href="/logout">Logout</a>
+    {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'insert' %}">Register</a>
+    {% endif %}
+    {% endblock %}
+    {% block content %}
+    {% if request.session.id is not None %}
+        <div class="table">
+            <table>
+                {% if employees %}
+                <tr>
+                    <th>Employee Image</th>
+                    <th>Employee ID</th>
+                    <th>Employee Name</th>
+                    <th>Employee Email</th>
+                    <th>Employee DoB</th>
+                    <th>Employee City</th>
+                    <th>Employee Postion</th>
+                    {% if request.session.admin %}
+                    <th>Action</th>
+                    {% endif %}
+                </tr>
+                {% for employee in employees %}
+                <tr>
+                    <td><img src="/media/{{employee.image}}" alt="pic" width="120"></td>
+                    <td>{{employee.id}}</td>
+                    <td>{{employee.fname}} {{employee.lname}}</td>
+                    <td>{{employee.email}}</td>
+                    <td>{{employee.dob}}</td>
+                    <td>{{employee.city}}</td>
+                    <td>{{employee.position}}</td>
+                    {% if request.session.admin %}
+                    <td>
+                        <a href="/viewEmpDetails/{{employee.id}}">View Details</a>
+                        <a href="/update/{{employee.id}}">Edit Details</a>
+                        <a href="/delete/{{employee.id}}" onclick="return confirm('Are you sure to delete?')">Delete Employee</a>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+                {% else %}
+                <h2>No Data Found</h2>
+                {% endif %}
+            </table>
+        </div>
+    {% else %}
+        <h3 class="error">Unauthorized! Access Denied, Please Log In.</h3>
+    {% endif %}
+    {% endblock %}
+    {% block bottomLinks %}
+    <a href="javascript:history.back()">Back</a>
+    {% endblock %}

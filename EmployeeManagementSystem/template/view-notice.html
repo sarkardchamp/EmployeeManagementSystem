@@ -1,0 +1,67 @@
+{% extends "boilerplate.html" %}
+    <title>{% block title %}View Recent Notice{% endblock %}</title>
+    {% block menu %}
+    {% if request.session.id is not None %}
+            <a href="/dashboard">Dashboard</a>
+        {% if request.session.admin %}
+            <a href="/publishNotice" class="active">Publish Notice</a>
+            <a href="/viewApplicants">New Applicants</a>
+            <a href="/leaveRequests">New Requests</a>
+        {% else %}
+            <a href="/requestLeave">Request for Leave</a>
+        {% endif %}
+        <a href="/viewEmployees">View Employees</a>
+        <a href="/logout">Logout</a>
+    {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'insert' %}">Register</a>
+    {% endif %}
+    {% endblock %}
+    {% block content %}
+    {% if request.session.id %}
+        {% if notices %}
+            {% for notice in notices %}
+            <div class="card-notice">
+                <h3 class="notice-title">{{notice.title}}</h3>
+                <div class="notice-content">
+                    <p>{{notice.publish_date}}</p>
+                    <p>{{notice.body}}</p>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <h3>No Recent Notices</h3>
+        {% endif %}
+    {% else %}
+        <h3 class="error">Unauthorized Access, please Log in.</h3>
+    {% endif %}
+    {% endblock %}
+    {% block bottomLinks %}
+        <a href="javascript:history.back();">Back</a>
+    {% endblock %}
+    {% block js %}
+        <script>
+            var acc = document.querySelectorAll('.notice-title');
+            acc.forEach(ele => {
+                ele.addEventListener("click", () => {
+                    ele.classList.toggle('active');
+                    var panel = ele.nextElementSibling;
+                    console.log(panel);
+                    if (panel.style.maxHeight) {
+                    panel.style.maxHeight = null;
+                    } else {
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                    }
+                });
+            });
+
+            
+            function removeActiveClass() {
+                acc.forEach(ele=>{
+                    ele.classList.remove('active');
+                    var panel = ele.nextElementSibling;
+                    panel.style.maxHeight = null;
+                });
+            }
+        </script>
+    {% endblock %}

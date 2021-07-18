@@ -1,0 +1,67 @@
+{% extends "boilerplate.html" %}
+    <title>{% block title %}Add Employee{% endblock %}</title>
+    {% block menu %}
+    {% if request.session.id is not None %}
+        <a href="/dashboard">Dashboard</a>
+        {% if request.session.admin %}
+            <a href="/publishNotice">Publish Notice</a>
+            <a href="/viewApplicants">New Applicants</a>
+            <a href="/leaveRequests">New Requests</a>
+        {% else %}
+            <a href="/requestLeave">Request for Leave</a>
+        {% endif %}
+        <a href="/viewEmployees">View Employees</a>
+        <a href="/logout">Logout</a>
+    {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'insert' %}">Register</a>
+    {% endif %}
+    {% endblock %}
+    {% block flashs %}<p id="flash" class="error">{% endblock %}
+    {% block flase %}</p>{% endblock %}
+    {% block content %}
+    {% if request.session.admin %}
+        <div class="form">
+            <form method="POST">
+                {% csrf_token %}
+                <h2>Add New Employee</h2>
+                <input type="hidden" name="id" id="id" value="{{employee.id}}">
+                <label for="fname">First Name:</label>
+                <input type="text" name="fname" id="fname" value="{{employee.fname}}">
+                <label for="lname">Last Name:</label>
+                <input type="text" name="lname" id="name" value="{{employee.lname}}">
+                <label for="image">Image Path:</label>
+                <input type="text" name="image" id="image" value="{{employee.image}}">
+                <label for="city">City:</label>
+                <input type="text" name="city" id="city" value="{{employee.city}}">
+                <label for="dob">Date of Birth:</label>
+                <input type="text" name="dob" id="dob" value="{{dob}}">
+                <label for="email">Email ID:</label>
+                <input type="text" name="email" id="email" value="{{employee.email}}">
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username" value="{{username}}">
+                <label for="password">Password:</label>
+                <input type="text" name="password" id="password" value="{{password}}">
+                <label for="leaves">Remaining Leaves:</label>
+                <input type="number" name="leaves" id="leaves" value="24">
+                <label for="position">Position</label>
+                <input type="text" name="position" id="position" value="Entry Level">
+                <label for="team">Current Team:</label>
+                <input type="text" name="team" id="team" value="Not Allocated">
+                <label for="project">Current Project</label>
+                <input type="text" name="project" id="project" value="Not Alotted">
+                <input type="submit" name="register" value="Add Employee" onclick="return parseDate() && validateRegistration();">
+            </form>
+        </div>
+        {% else %}
+        <h2 class="error">Unauthorized! Access Denied</h2>
+    {% endif %}
+    {% endblock %}
+    {% block bottomLinks %}
+        <a href="{% url 'viewApplicants' %}">View Applicants</a>
+        <a href="{% url 'viewEmployees' %}">View Employees</a>
+        <a href="javascript:history.back()">Back</a>
+    {% endblock %}
+    {% block js %}
+        <script src="/static/form-validation.js"></script>
+    {% endblock %}

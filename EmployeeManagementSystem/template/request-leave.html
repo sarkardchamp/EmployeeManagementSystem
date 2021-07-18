@@ -1,0 +1,48 @@
+{% extends "boilerplate.html" %}
+    <title>{% block title %}Request For Leave{% endblock %}</title>
+    {% block menu %}
+    {% if request.session.id is not None %}
+        <a href="/dashboard">Dashboard</a>
+        {% if request.session.admin %}
+            <a href="/pushNotice">Publish Notice</a>
+            <a href="/viewApplicants">New Applicants</a>
+            <a href="/viewApplicants">New Requests</a>
+        {% else %}
+            <a href="#" class="active">Request for Leave</a>
+        {% endif %}
+        <a href="/viewEmployees">View Employees</a>
+        <a href="/logout">Logout</a>
+    {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'insert' %}">Register</a>
+    {% endif %}
+    {% endblock %}
+    {% block content %}
+        {% if request.session.id is not None %}
+            <div class="form">
+                <form method="post">
+                    {% csrf_token %}
+                    <h2>Request Leave</h2>
+                    <label for="leaveType">Select Leave Type:</label><br>
+                    <select name="leaveType" id="leaveType">
+                        <option value="casual">Casual Leave</option>
+                        <option value="earned">Earned Leave</option>
+                        <option value="sick">Sick Leave</option>
+                    </select><br>
+                    <label for="sd">Start Date:</label>
+                    <input type="date" name="startDate" id="sd">
+                    <label for="ed">End Date:</label>
+                    <input type="date" name="endDate" id="ed">
+                    <label for="re">Description:</label>
+                    <textarea name="reason" id="re"></textarea>
+                    <input type="submit" value="Request">
+                    <a href="javascript:history.back();">Cancel</a>
+                </form>
+            </div>
+        {% else %}
+            <h3 class="error">Unauthorized Access, Please login to the System</h3>
+        {% endif %}
+    {% endblock %}
+    {% block js %}
+        <script src="/static/form-validation.js"></script>
+    {% endblock %}

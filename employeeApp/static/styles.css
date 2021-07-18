@@ -1,0 +1,307 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgba(187, 245, 226, 0.89);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: black;
+    margin: 0 0 60px 0;
+}
+.bottom-links {
+    display: flex;
+    justify-content: end;
+}
+nav {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    padding: 0 20px;
+    background-color: #fff;
+    overflow: auto;
+    box-shadow: 0 0 10px #bbb;
+}
+#heading img {
+    margin-top: 8px;
+    width: 16vw;
+    height: 30px;
+}
+#menu {
+    float: right;
+}
+#menu > a {
+    display: inline-block;
+    padding: 11px 15px;
+    margin-top: 0px;
+    text-decoration: none;
+    color: black;
+    font-variant: small-caps;
+    font-weight: bold;
+    font-size: 16px;
+}
+.jumbotron {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: space-around;
+    font-weight: bolder;
+    font-size: 40px;
+    background-color: #eee;
+    border: 2px solid #bbb;
+    width: 100%;
+    margin: 30px auto;
+    cursor: context-menu;
+    border-radius: 8px;
+    color: rgb(21, 191, 131);
+    min-height: 200px;
+    padding: 20px 30px;
+}
+a {
+    text-decoration: none;
+    color: rgb(21, 191, 131);
+}
+#menu > a:hover, #menu > a:active, .container-flex a:hover,.container-flex a:active {
+    color: #fff;
+    background-color: rgb(21, 199, 131);
+    transition: 0.4s;
+}
+#menu > a.active {
+    color: #fff;
+    background-color: rgb(21, 199, 131);
+    box-shadow: 1px 0px 10px inset;
+}
+.card .data   td > a {
+    margin: 0 0 0 -20px;
+}
+.error {
+    color: red;
+    font-weight: bold;
+}
+.success {
+    color: rgb(3, 187, 3);
+    font-weight: bold;
+}
+.container {
+    width: 70%;
+    margin: 0 auto;
+    min-height: 620px;
+}
+.container-flex {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+}
+.container-flex a {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px 0px;
+    width: fit-content;
+    text-decoration: none;
+    color: rgb(21, 199, 131);
+    font-variant: small-caps;
+    font-weight: bold;
+    font-size: 16px;
+}
+.container-flex > .table a {
+    margin: 0;
+}
+.container-flex > .table {
+    min-width: 70%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 30px auto;
+}
+table {
+    border: 1px solid grey;
+    border-collapse: collapse;
+    width: 100%;
+}
+th {
+    color: aliceblue;
+    background-color: rgb(21, 191, 131);
+    cursor: context-menu;
+}
+tr {
+    height: min-content;
+}
+th, td {
+    border: 1px solid grey;
+    padding: 5px 10px;
+}
+tr:nth-child(odd) {
+    background-color: rgb(220, 235, 229);
+}
+tr:not(:nth-child(1)):hover {
+    background-color: rgb(250, 250, 250);
+    cursor: pointer;
+    transition: 0.4s;
+}
+tr > td:last-child {
+    text-align: center;
+}
+.container-flex > .form {
+    width: 60%;
+    margin: 30px auto;
+    background-color: #fff;
+}
+.container-flex > .form.form-notice {
+    width: 100%;
+}
+form {
+    padding: 20px 15%;
+    flex-direction: column;
+    box-shadow: 1px 5px 20px;
+}
+label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #888;
+    margin-bottom: 5px;
+}
+.text h2, .form h2 {
+    text-align: center;
+}
+input:not([type=submit]), textarea, select {
+    display: block;
+    width: 100%;
+    padding: 5px 10px;
+    margin-bottom: 12px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: 1px solid rgb(21, 199, 131);
+}
+input:not([type=submit]) {
+    border: none;
+    border-bottom: 2px solid rgb(21, 199, 131);
+}
+input:not([type=submit]):hover, input:not([type=submit]):active {
+    background-color: rgb(213, 248, 236);
+    transition: 0.4s;
+}
+input[type=submit], .form > form a, .form > form button {
+    color: #fff;
+    background-color: rgb(21, 199, 131);
+    border-radius: 10px;
+    padding: 5px 35px;
+    margin: 7px 20px 7px auto;
+    font-variant: small-caps;
+    font-weight: bold;
+    font-size: 20px;
+    border: 0px;
+    cursor: pointer;
+}
+input[type=submit]:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+textarea {
+    height: 150px;
+    resize: none;
+}
+footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    text-align: center;
+    padding: 16px;
+    background-color: #fff;
+    margin: 0;
+    box-shadow: 0 0 10px #bbb;
+}
+
+
+/* Card */
+.card {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.image {
+    flex: 1;
+    background-color: #fff;
+    border: 1px solid aqua;
+    border-radius: 10px;
+    margin: 10px 20px;
+}
+.data {
+    flex: 2;
+}
+.data > table {
+    border: none;
+}
+.data > table th, .data > table td {
+    text-align: left;
+    background-color: transparent;
+    color: black;
+    width: 40%;
+    padding: 10px 10px;
+    border: none;
+}
+
+
+/* card-notice */
+.notice-title {
+    background-color: #eee;
+    color: rgb(21, 191, 131);
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+.notice-title.active, .notice-title:hover {
+    background-color: rgb(21, 191, 131);
+    color: #eee;
+}
+.notice-title::after {
+    content: '\002B';
+    color: rgb(21, 191, 131);
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+.notice-title:hover::after {
+    color: #eee;
+}
+.notice-title.active::after {
+    content: '\2212';
+    color: #eee;
+    transition: 0.4s;
+}
+.notice-content {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+
+.mb-3 {
+    margin-bottom: 30px;
+}
+.mt-3 {
+    margin-top: 30px;
+}
+.boxes > ul > li {
+    list-style-type: none;
+    display: inline-block;
+    text-align: center;
+}
+.boxes .box {
+    display: inline-block;
+    padding: 10px 20px;
+    height: 200px;
+    width: 200px;
+}
+.boxes > ul > li i {
+    font-size: 128px;
+}

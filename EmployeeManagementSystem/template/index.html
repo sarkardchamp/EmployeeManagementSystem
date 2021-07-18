@@ -1,0 +1,27 @@
+{% extends "boilerplate.html" %}
+    <title>{% block title %}Home Page{% endblock %}</title>
+    {% block menu %}
+    {% if request.session.id is not None %}
+        <a href="/dashboard">Dashboard</a>
+        {% if request.session.admin %}
+            <a href="#">Publish Notice</a>
+            <a href="/viewApplicants">New Applicants</a>
+            <a href="#">New Requests</a>
+        {% else %}
+            <a href="#">Request for Leave</a>
+        {% endif %}
+        <a href="/viewEmployees">View Employees</a>
+        <a href="/logout">Logout</a>
+    {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'insert' %}">Register</a>
+    {% endif %}
+    {% endblock %}
+    {% block content %}
+        <div class="jumbotron">
+            Welcome to the Polaris Employee Management System.
+        </div>
+        {% if not request.session.id %}
+        <h3>Hi User, Please <a href="/login">Log In</a> or <a href="/insert">Register</a> to continue.</h3>
+        {% endif %}
+    {% endblock %}

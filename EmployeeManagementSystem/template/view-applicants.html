@@ -1,0 +1,55 @@
+{% extends "boilerplate.html" %}
+    <title>{% block title %}View Applicants{% endblock %}</title>
+    {% block menu %}
+    {% if request.session.id is not None %}
+        <a href="/dashboard">Dashboard</a>
+        {% if request.session.admin %}
+            <a href="/publishNotice">Publish Notice</a>
+            <a href="#" class="active">New Applicants</a>
+            <a href="/leaveRequests">New Requests</a>
+        {% else %}
+            <a href="/requestLeave">Request for Leave</a>
+        {% endif %}
+        <a href="/viewEmployees">View Employees</a>
+        <a href="/logout">Logout</a>
+    {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'insert' %}">Register</a>
+    {% endif %}
+    {% endblock %}
+    {% block content %}
+    {% if request.session.admin %}
+        <div class="table">
+            <table>
+                <tr>
+                    <th>Image</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Date of Birth</th>
+                    <th>City</th>
+                    <th>Action</th>
+                </tr>
+                {% for applicant in applicants %}
+                <tr>
+                    <td><img src="/media/{{applicant.image}}" alt="profile_pic" width="120"></td>
+                    <td>{{applicant.fname}}</td>
+                    <td>{{applicant.lname}}</td>
+                    <td>{{applicant.email}}</td>
+                    <td>{{applicant.dob}}</td>
+                    <td>{{applicant.city}}</td>
+                    <td>
+                        <a href="/addEmp/{{applicant.id}}">Select</a>
+                        <a href="/deleteEntry/{{applicant.id}}" onclick="return confirm ('Data will be deleted permanently. Confirm delete?');">Reject</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% else %}
+        <h2 class="error">Unauthorized! Access Denied</h2>
+    {% endif %}
+    {% endblock %}
+    {% block bottomLinks %}
+        <a href="javascript:history.back();">Back</a>
+    {% endblock %}

@@ -1,0 +1,24 @@
+{% extends "boilerplate.html" %}
+    <title>{% block title %}Login to Access data{% endblock %}</title>
+    {% block menu %}
+        <a href="/insert">Register</a>
+    {% endblock %}
+    {% block flashs %}<p id="flash" class="error">{% endblock %}
+    {% block flase %}</p>{% endblock %}
+    {% block content %}
+        <div class="form">
+            <form method="POST">
+                {% csrf_token %}
+                <h3 class="mb-3">Login as Employee or as Admin</h3>
+                <label for="em_un">Enter Email or Username:</label>
+                <input type="text" name="em_un" id="em_un">
+                <label for="password">Enter Password:</label>
+                <input type="password" name="password" id="password">
+                <input type="submit" value="Log In">
+                <a href="javascript:history.back();" style="margin-left: 30px;">Cancel</a>
+            </form>
+        </div>
+    {% endblock %}
+    {% block js %}
+        <script src="/static/form-validation.js"></script>
+    {% endblock %}

@@ -1,0 +1,100 @@
+{% extends "boilerplate.html" %}
+    <title>{% block title %}Dashboard{% endblock %}</title>
+    {% block menu %}
+    {% if request.session.id is not None %}
+            <a href="#" class="active">Dashboard</a>
+        {% if request.session.admin %}
+            <a href="/publishNotice">Publish Notice</a>
+            <a href="/viewApplicants">New Applicants</a>
+            <a href="/leaveRequests">New Requests</a>
+        {% else %}
+            <a href="/requestLeave">Request for Leave</a>
+        {% endif %}
+        <a href="/viewEmployees">View Employees</a>
+        <a href="/logout">Logout</a>
+    {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'insert' %}">Register</a>
+    {% endif %}
+    {% endblock %}
+    {% block content %}
+        <h3>Hi {{request.session.data.fname}} {{request.session.data.lname}}{% if not request.session.data %}User{% endif %}!</h3>
+        <div class="jumbotron">
+            Welcome to the Polaris Employee Management System.
+        </div>
+        {% if request.session.id %}
+        <div class="boxes">
+            {% if request.session.admin %}
+            <ul>
+                <li>
+                    <a href="/publishNotice">
+                        <div class="box">
+                            <i class="fas fa-upload"></i>
+                            <span>Manage Notice</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="/leaveRequests">
+                        <div class="box">
+                            <i class="fas fa-balance-scale-left"></i>
+                            <span>Manage Requests</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="/viewApplicants">
+                        <div class="box">
+                            <i class="fas fa-user-tie"></i>
+                            <span>Manage New Registrations</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="/viewEmployees">
+                        <div class="box">
+                            <i class="fas fa-business-time"></i>
+                            <span>Manage Employees</span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+            {% else %}
+            <ul>
+                <li>
+                    <a href="/leaves/{{request.session.id}}">
+                        <div class="box">
+                            <i class="fas fa-beer"></i>
+                            <span>Your Leaves</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="/viewNotice">
+                        <div class="box">
+                            <i class="fas fa-check-double"></i>
+                            <span>Notice</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="/viewEmployees">
+                        <div class="box">
+                            <i class="fas fa-users"></i>
+                            <span>View Employees</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="/viewEmpDetails/{{request.session.id}}">
+                        <div class="box">
+                            <i class="fas fa-address-card"></i>
+                            <span>Visit Profile</span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+            {% endif %}
+        </div>
+        {% endif %}
+    {% endblock %}
