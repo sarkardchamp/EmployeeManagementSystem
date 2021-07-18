@@ -17,6 +17,8 @@
         <a href="{% url 'insert' %}">Register</a>
     {% endif %}
     {% endblock %}
+    {% block flashs %}<p id="flash" class="error">{% endblock %}
+    {% block flase %}</p>{% endblock %}
     {% block content %}
         {% if request.session.id is not None %}
             <div class="form">
@@ -46,4 +48,5 @@
     {% endblock %}
     {% block js %}
         <script src="/static/form-validation.js"></script>
+        <script>setMinDate();</script>
     {% endblock %}

@@ -28,6 +28,10 @@ function validateRegistration() {
 }
 
 function validateEmpForm() {
+    if (! parseDate()) {
+        document.getElementById('flash').innerText = 'Invalid Date';
+        return false;
+    }
 
     return true;
 }
@@ -41,12 +45,33 @@ function validateLeaveRequest() {
     ltype = document.getElementById('leaveType').value;
     sdate = document.getElementById('sd').value;
     edate = document.getElementById('ed').value;
-    reason = document.getElementById('re').innerText;
-    if (!(ltype && sdate && edate && reason)) {
-        flash.innerText = 'All fields are required.';
+    if (!(ltype && sdate && edate)) {
+        flash.innerText = 'All fields except Description are required.';
+        return false;
+    }
+    if (edate < sdate) {
+        flash.innerText = 'End Date must be greater than Start Date';
         return false;
     }
     return true;
+}
+
+function setMinDate() {
+    var sdate, edate, yyyy,mm,dd;
+    sdate = document.getElementById('sd');
+    edate = document.getElementById('ed');
+    d = new Date();
+    yyyy = d.getFullYear();
+    mm = 1 + d.getMonth();
+    dd = d.getDate();
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+    sdate.setAttribute('min', '' + yyyy + '-' + mm + '-' + dd);
+    edate.setAttribute('min', '' + yyyy + '-' + mm + '-' + dd);
 }
 
 function checkPasswords() {
@@ -72,14 +97,24 @@ function checkPasswords() {
 function parseDate() {
     var node = document.getElementById('dob');
     var str = node.value;
-    if (str.length != 13)
+    var mon, dd, yy;
+    if (str.length >= 13 || str.length < 12)
         return false;
     const months = {'Jan':'01','Feb':'02','Mar':'03','Apr':'04','May':'05','Jun':'06',
     'Jul':'07','Aug':'08','Sep':'09','Oct':'10','Nov':'11','Dec':'12'};
-    var mon = months[str.substr(0,3)];
-    var dd = str.substr(5,2);
-    var yy = str.substr(9,4);
+    mon = months[str.substr(0,3)];
+    if (mon == '05') {
+        dd = str.substr(4,2);
+        yy = str.substr(8,4);
+    } else {
+        dd = str.substr(5,2);
+        yy = str.substr(9,4);
+    }
     str = yy + '-' + mon + '-' + dd;
+    console.log(str);
+    if (str.length != 10) {
+        return false;
+    }
     node.value = str;
     return true;
 }

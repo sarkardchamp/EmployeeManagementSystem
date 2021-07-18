@@ -35,7 +35,7 @@
                 <label for="city">City:</label>
                 <input type="text" name="city" id="city" value="{{employee.city}}">
                 <label for="dob">Date of Birth:</label>
-                <input type="text" name="dob" id="dob" value="{{dob}}">
+                <input type="text" name="dob" id="dob" value="{{dob}}" readonly>
                 <label for="email">Email ID:</label>
                 <input type="text" name="email" id="email" value="{{employee.email}}">
                 <label for="username">Username:</label>
@@ -50,7 +50,7 @@
                 <input type="text" name="team" id="team" value="Not Allocated">
                 <label for="project">Current Project</label>
                 <input type="text" name="project" id="project" value="Not Alotted">
-                <input type="submit" name="register" value="Add Employee" onclick="return parseDate() && validateEmpForm();">
+                <input type="submit" name="register" value="Add Employee" onclick="return validateEmpForm();">
             </form>
         </div>
         {% else %}

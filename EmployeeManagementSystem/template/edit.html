@@ -50,7 +50,7 @@
                 <input type="text" name="team" id="team" value="{{employee.team}}">
                 <label for="project">Current Project:</label>
                 <input type="text" name="current_project" id="project" value="{{employee.current_project}}">
-                <input type="submit" name="register" value="Update" onclick="return parseDate();">
+                <input type="submit" name="register" value="Update" onclick="return validateEmpform();">
             </form>
             <!-- <hr>
             <a href="/update/{{employee.id}}"></a> -->
@@ -58,6 +58,10 @@
     {% else %}
         <h2 class="error">Unauthorized! Access Denied</h2>
     {% endif %}
+    {% endblock %}
+    {% block bottomLinks %}
+        <a href="{% url 'viewEmployees' %}">View Employees</a>
+        <a href="javascript:history.back()">Back</a>
     {% endblock %}
     {% block js %}
         <script src="/static/form-validation.js"></script>
