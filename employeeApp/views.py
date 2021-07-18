@@ -277,8 +277,8 @@ def publishNotice(request):
 
 def viewNotice(request):
     notices = Notice.objects.order_by('-id')
-    if len(notices) > 5:
-        notices = notices[:5]
+    if len(notices) > 10:
+        notices = notices[:10]
     return render(request, 'view-notice.html', {'notices': notices})
 
 
@@ -345,5 +345,5 @@ def changePassword(request):
         else:
             messages.error(request, "all fields are required.")
     return render(request, 'changePassword.html')
-                
+
 
