@@ -1,8 +1,41 @@
 function validateLogin() {
+    var flash = document.getElementById('flash');
+    flash.innerText = '';
+    var em_un, pwd;
+    em_un = document.getElementById('em_un').value;
+    pwd = document.getElementById('password').value;
+    if (em_un.length < 1 || pwd.length < 1) {
+        flash.innerText = 'All fields are required';
+        return false;
+    }
     return true;
 }
 
 function validateRegistration() {
+    return true;
+}
+
+function validateEmpForm() {
+    return true;
+}
+
+function checkPasswords() {
+    var flash = document.getElementById('flash');
+    flash.innerText = '';
+    var oldpass, pass, cnfpass;
+    oldpass = document.getElementById('oldpass').value;
+    pass = document.getElementById('pass').value;
+    cnfpass = document.getElementById('newpass').value;
+    if (oldpass.length < 1 || pass.length < 1 || cnfpass.length < 1) {
+        flash.innerText = 'All fields are required.';
+        console.log('Empty field');
+        return false;
+    }
+    if (pass != cnfpass) {
+        flash.innerText = 'New Password and Confirm Password do not match.';
+        console.log('Password Mismatch');
+        return false;
+    }
     return true;
 }
 
