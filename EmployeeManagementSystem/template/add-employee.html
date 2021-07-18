@@ -25,7 +25,7 @@
             <form method="POST">
                 {% csrf_token %}
                 <h2>Add New Employee</h2>
-                <input type="hidden" name="id" id="id" value="{{employee.id}}">
+                <input type="hidden" name="id" id="id" value="{{employee.id}}" readonly>
                 <label for="fname">First Name:</label>
                 <input type="text" name="fname" id="fname" value="{{employee.fname}}">
                 <label for="lname">Last Name:</label>
@@ -39,7 +39,7 @@
                 <label for="email">Email ID:</label>
                 <input type="text" name="email" id="email" value="{{employee.email}}">
                 <label for="username">Username:</label>
-                <input type="text" name="username" id="username" value="{{username}}">
+                <input type="text" name="username" id="username" value="{{username}}" readonly>
                 <label for="password">Password:</label>
                 <input type="text" name="password" id="password" value="{{password}}">
                 <label for="leaves">Remaining Leaves:</label>

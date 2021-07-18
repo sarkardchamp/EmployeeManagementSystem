@@ -25,9 +25,10 @@
                     <h2>Request Leave</h2>
                     <label for="leaveType">Select Leave Type:</label><br>
                     <select name="leaveType" id="leaveType">
-                        <option value="casual">Casual Leave</option>
+                        <option value="casual" selected>Casual Leave</option>
                         <option value="earned">Earned Leave</option>
                         <option value="sick">Sick Leave</option>
+                        <option value="lop">Loss of Pay Leave</option>
                     </select><br>
                     <label for="sd">Start Date:</label>
                     <input type="date" name="startDate" id="sd">
@@ -35,7 +36,7 @@
                     <input type="date" name="endDate" id="ed">
                     <label for="re">Description:</label>
                     <textarea name="reason" id="re"></textarea>
-                    <input type="submit" value="Request">
+                    <input type="submit" value="Request" onclick="return validateLeaveRequest();">
                     <a href="javascript:history.back();">Cancel</a>
                 </form>
             </div>

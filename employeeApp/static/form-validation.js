@@ -12,10 +12,40 @@ function validateLogin() {
 }
 
 function validateRegistration() {
+    var fname, lname, city, email, dob;
+    fname = document.getElementById('fname').value;
+    lname = document.getElementById('lname').value;
+    city = document.getElementById('city').value;
+    email = document.getElementById('email').value;
+    dob = document.getElementById('dob').value;
+    flash = document.getElementById('flash');
+    flash.innerText = '';
+    if (!(fname && lname && city && email && dob)) {
+        flash.innerText = 'All fields are required';
+        return false;
+    }
     return true;
 }
 
 function validateEmpForm() {
+
+    return true;
+}
+
+
+
+function validateLeaveRequest() {
+    var ltype, sdate, edate, reason, flash;
+    flash = document.getElementById('flash');
+    flash.innerText = '';
+    ltype = document.getElementById('leaveType').value;
+    sdate = document.getElementById('sd').value;
+    edate = document.getElementById('ed').value;
+    reason = document.getElementById('re').innerText;
+    if (!(ltype && sdate && edate && reason)) {
+        flash.innerText = 'All fields are required.';
+        return false;
+    }
     return true;
 }
 

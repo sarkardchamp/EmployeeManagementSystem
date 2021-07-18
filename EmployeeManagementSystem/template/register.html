@@ -14,14 +14,14 @@
                 <label for="lname">Last Name:</label>
                 <input type="text" name="lname" id="lname" placeholder="Last Name">
                 <label for="image">Passport Sized Photgraph:</label>
-                <input type="file" name="image" id="image" accept="image/*">
+                <input type="file" name="image" id="image" accept="image/*" required>
                 <label for="city">City:</label>
                 <input type="text" name="city" id="city" placeholder="Your City">
                 <label for="age">Date of Birth:</label>
                 <input type="date" name="dob" id="dob" placeholder="Date of Birth">
                 <label for="email">Email ID:</label>
                 <input type="text" name="email" id="email" placeholder="Your Email">
-                <input type="submit" name="register" value="Register">
+                <input type="submit" name="register" value="Register" onclick="return validateRegistration();">
                 <a href="javascript:history.back();" style="margin-left: 30px;">Cancel</a>
             </form>
         </div>
