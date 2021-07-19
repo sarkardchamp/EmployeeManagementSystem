@@ -18,7 +18,7 @@
     {% endif %}
     {% endblock %}
     {% block content %}
-        <h3>Hi {{request.session.data.fname}} {{request.session.data.lname}}{% if not request.session.data %}User{% endif %}!</h3>
+        <h1 style="margin-top: 100px; color: #fff;">Hi {{request.session.data.fname}} {{request.session.data.lname}}{% if not request.session.data %}User{% endif %}!</h1>
         <div class="jumbotron">
             Welcome to the Polaris Employee Management System.
         </div>
@@ -97,4 +97,10 @@
             {% endif %}
         </div>
         {% endif %}
+    {% endblock %}
+    {% block js %}
+        <script>
+            var div = document.getElementsByTagName('body')[0];
+            div.style.background = "url('/static/emp_banner.jpg') top/100% auto no-repeat";
+        </script>
     {% endblock %}
