@@ -18,10 +18,28 @@
     {% endif %}
     {% endblock %}
     {% block content %}
+        {% if not request.session.id %}
+        <h1 style="margin-top: 100px;">Hi User!</h1>
+        {% endif %}
         <div class="jumbotron">
             Welcome to the Polaris Employee Management System.
         </div>
-        {% if not request.session.id %}
-        <h3>Hi User, Please <a href="/login">Log In</a> or <a href="/insert">Register</a> to continue.</h3>
-        {% endif %}
+        <div class="form">
+            <form method="POST">
+                {% csrf_token %}
+                <h3 class="mb-3">Login as Employee or as Admin</h3>
+                <label for="em_un">Enter Email or Username:</label>
+                <input type="text" name="em_un" id="em_un">
+                <label for="password">Enter Password:</label>
+                <input type="password" name="password" id="password">
+                <input type="submit" value="Log In" onclick="return validateLogin();">
+                <a href="javascript:history.back();" style="margin-left: 30px;">Cancel</a>
+            </form>
+        </div>
+    {% endblock %}
+    {% block js %}
+        <script>
+            var div = document.getElementsByTagName('body')[0];
+            div.style.background = "url('/static/icon.png') 0 40px/100% auto no-repeat, rgba(187, 245, 226, 0.89)";
+        </script>
     {% endblock %}
