@@ -25,7 +25,7 @@
             Welcome to the Polaris Employee Management System.
         </div>
         <div class="form">
-            <form method="POST">
+            <form method="POST" action="/login">
                 {% csrf_token %}
                 <h3 class="mb-3">Login as Employee or as Admin</h3>
                 <label for="em_un">Enter Email or Username:</label>
